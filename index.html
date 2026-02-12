@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Explorer | API Playground</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="logo-text">Nexus Explorer</span>
+                </div>
+                <div class="status-badge" id="apiStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Checking...</span>
+                </div>
+            </header>
+
+            <nav class="endpoint-nav">
+                <h3 class="nav-title">Endpoints</h3>
+                <ul class="endpoint-list" id="endpointList">
+                    <li>
+                        <button class="endpoint-btn active" data-endpoint="/status">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                            <span>GET /status</span>
+                            <span class="endpoint-tag">System</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="endpoint-btn" data-endpoint="/user">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <span>GET /user</span>
+                            <span class="endpoint-tag">Test</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="endpoint-btn" data-endpoint="/mock">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="9" y1="9" x2="15" y2="9"/>
+                                <line x1="9" y1="13" x2="15" y2="13"/>
+                                <line x1="9" y1="17" x2="12" y2="17"/>
+                            </svg>
+                            <span>GET /mock</span>
+                            <span class="endpoint-tag">Dev</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="endpoint-btn" data-endpoint="/lorem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                            <span>GET /lorem</span>
+                            <span class="endpoint-tag">Posts</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="endpoint-btn" data-endpoint="/utility/uuid">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                            <span>GET /utility/uuid</span>
+                            <span class="endpoint-tag">Utility</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="endpoint-btn" data-endpoint="/http_status">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            <span>GET /http_status</span>
+                            <span class="endpoint-tag">Ref</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <footer class="sidebar-footer">
+                <div class="api-info">
+                    <span class="api-version">v1.3.1</span>
+                    <a href="https://github.com/MTEXdotDev/nx.mtex.dev" target="_blank" rel="noopener" class="github-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </footer>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Endpoint Header -->
+            <header class="endpoint-header">
+                <div class="endpoint-info">
+                    <div class="method-badge get">GET</div>
+                    <div class="endpoint-url">
+                        <span class="base-url">https://nx.mtex.dev</span>
+                        <span class="path" id="currentPath">/status</span>
+                    </div>
+                </div>
+                <div class="endpoint-actions">
+                    <div class="param-input" id="paramInput" style="display: none;">
+                        <label for="pathParam">ID:</label>
+                        <input type="text" id="pathParam" placeholder="optional">
+                    </div>
+                    <div class="search-input" id="searchInput" style="display: none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" id="queryParam" placeholder="Search keyword...">
+                    </div>
+                    <button class="btn-send" id="sendBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                        Send Request
+                    </button>
+                </div>
+            </header>
+
+            <!-- Endpoint Description -->
+            <section class="endpoint-description" id="endpointDescription">
+                <p>System status & metrics - Returns current API status, version info, and performance metrics.</p>
+            </section>
+
+            <!-- Response Area -->
+            <section class="response-section">
+                <div class="response-header">
+                    <div class="response-meta">
+                        <span class="response-status" id="responseStatus">
+                            <span class="status-code">---</span>
+                            <span class="status-text">Ready</span>
+                        </span>
+                        <span class="response-time" id="responseTime">0ms</span>
+                        <span class="response-size" id="responseSize">0 B</span>
+                    </div>
+                    <div class="response-actions">
+                        <button class="btn-icon" id="copyBtn" title="Copy response">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" id="formatBtn" title="Format JSON">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 7 4 4 20 4 20 7"/>
+                                <line x1="9" y1="20" x2="15" y2="20"/>
+                                <line x1="12" y1="4" x2="12" y2="20"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="response-body">
+                    <pre id="responseOutput"><code class="placeholder">// Click "Send Request" to fetch data...</code></pre>
+                </div>
+            </section>
+
+            <!-- Quick Stats -->
+            <section class="stats-section" id="statsSection">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="statRequests">0</span>
+                        <span class="stat-label">Requests</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon success">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="statSuccess">0</span>
+                        <span class="stat-label">Success</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon time">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="statAvgTime">0ms</span>
+                        <span class="stat-label">Avg Time</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE = 'https://nx.mtex.dev';
+        
+        const endpointMeta = {
+            '/status': { 
+                desc: 'System status & metrics - Returns current API status, version info, and performance metrics.',
+                hasParam: false, 
+                hasSearch: false 
+            },
+            '/user': { 
+                desc: 'User test stuff - Returns mock user data for testing purposes.',
+                hasParam: false, 
+                hasSearch: false 
+            },
+            '/mock': { 
+                desc: 'Developer test data - Returns mock data for development and testing.',
+                hasParam: false, 
+                hasSearch: false 
+            },
+            '/lorem': { 
+                desc: 'Lorem test posts with search - Returns test posts. Optionally filter by ID or search keyword.',
+                hasParam: true, 
+                hasSearch: true 
+            },
+            '/utility/uuid': { 
+                desc: 'Generate one or multiple UUIDs - Append a count to generate multiple (e.g., /utility/uuid/5).',
+                hasParam: true, 
+                hasSearch: false 
+            },
+            '/http_status': { 
+                desc: 'HTTP status code references - Append a code to get specific info (e.g., /http_status/404).',
+                hasParam: true, 
+                hasSearch: false 
+            }
+        };
+
+        let currentEndpoint = '/status';
+        let stats = { requests: 0, success: 0, totalTime: 0 };
+
+        const endpointList = document.getElementById('endpointList');
+        const sendBtn = document.getElementById('sendBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const formatBtn = document.getElementById('formatBtn');
+        const responseOutput = document.getElementById('responseOutput');
+        const responseStatus = document.getElementById('responseStatus');
+        const responseTime = document.getElementById('responseTime');
+        const responseSize = document.getElementById('responseSize');
+        const currentPath = document.getElementById('currentPath');
+        const endpointDescription = document.getElementById('endpointDescription');
+        const paramInput = document.getElementById('paramInput');
+        const searchInput = document.getElementById('searchInput');
+        const queryParam = document.getElementById('queryParam');
+        const pathParam = document.getElementById('pathParam');
+        const apiStatus = document.getElementById('apiStatus');
+
+        async function checkAPIStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/status`);
+                if (response.ok) {
+                    apiStatus.innerHTML = '<span class="status-dot online"></span><span class="status-text">Online</span>';
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                apiStatus.innerHTML = '<span class="status-dot offline"></span><span class="status-text">Offline</span>';
+            }
+        }
+
+        function selectEndpoint(endpoint) {
+            currentEndpoint = endpoint;
+            currentPath.textContent = endpoint;
+            
+            document.querySelectorAll('.endpoint-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.endpoint === endpoint);
+            });
+
+            const meta = endpointMeta[endpoint];
+            endpointDescription.querySelector('p').textContent = meta.desc;
+            
+            paramInput.style.display = meta.hasParam ? 'flex' : 'none';
+            searchInput.style.display = meta.hasSearch ? 'flex' : 'none';
+            
+            pathParam.value = '';
+            queryParam.value = '';
+        }
+
+        async function sendRequest() {
+            const btn = sendBtn;
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            let url = `${API_BASE}${currentEndpoint}`;
+            
+            if (pathParam.value) {
+                url += `/${encodeURIComponent(pathParam.value)}`;
+            }
+            
+            if (queryParam.value) {
+                url += `?q=${encodeURIComponent(queryParam.value)}`;
+            }
+
+            const startTime = performance.now();
+
+            try {
+                const response = await fetch(url);
+                const endTime = performance.now();
+                const time = Math.round(endTime - startTime);
+                
+                const data = await response.json();
+                const jsonStr = JSON.stringify(data, null, 2);
+                const size = new Blob([jsonStr]).size;
+
+                responseOutput.innerHTML = `<code class="json">${syntaxHighlight(jsonStr)}</code>`;
+                
+                const statusEl = responseStatus;
+                statusEl.innerHTML = `
+                    <span class="status-code ${response.ok ? 'success' : 'error'}">${response.status}</span>
+                    <span class="status-text">${response.statusText}</span>
+                `;
+                
+                responseTime.textContent = `${time}ms`;
+                responseSize.textContent = formatBytes(size);
+
+                stats.requests++;
+                stats.totalTime += time;
+                if (response.ok) stats.success++;
+                
+                updateStats();
+
+            } catch (error) {
+                responseOutput.innerHTML = `<code class="error">// Error: ${error.message}</code>`;
+                responseStatus.innerHTML = '<span class="status-code error">ERR</span><span class="status-text">Failed</span>';
+            }
+
+            btn.classList.remove('loading');
+            btn.disabled = false;
+        }
+
+        function syntaxHighlight(json) {
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
+                let cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return `<span class="${cls}">${match}</span>`;
+            });
+        }
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function updateStats() {
+            document.getElementById('statRequests').textContent = stats.requests;
+            document.getElementById('statSuccess').textContent = stats.success;
+            document.getElementById('statAvgTime').textContent = 
+                stats.requests > 0 ? `${Math.round(stats.totalTime / stats.requests)}ms` : '0ms';
+        }
+
+        function copyResponse() {
+            const text = responseOutput.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                copyBtn.classList.add('copied');
+                setTimeout(() => copyBtn.classList.remove('copied'), 1500);
+            });
+        }
+
+        endpointList.addEventListener('click', e => {
+            const btn = e.target.closest('.endpoint-btn');
+            if (btn) selectEndpoint(btn.dataset.endpoint);
+        });
+
+        sendBtn.addEventListener('click', sendRequest);
+        copyBtn.addEventListener('click', copyResponse);
+
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                sendRequest();
+            }
+        });
+
+        checkAPIStatus();
+        setInterval(checkAPIStatus, 30000);
+    </script>
+</body>
+</html>
